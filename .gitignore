@@ -1,0 +1,11 @@
+# Bases de datos y archivos pesados de datos
+*.db
+*.csv
+*.xlsx
+*.zip
+
+# Carpetas completas de datos o archivos temporales de Python
+data/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
