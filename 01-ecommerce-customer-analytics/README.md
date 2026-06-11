@@ -49,7 +49,7 @@ El algoritmo K-Means ($K=4$) validó los extremos de la segmentación manual (99
 ![Segmentación K-Means](reports/clusters_kmeans.png)
 
 ## 💻 Stack Tecnológico
-* **Lenguaje:** Python 3.x
+* **Lenguaje:** Python 3.14
 * **Librerías Principales:** Pandas, NumPy, Scikit-Learn
 * **Entorno de Base de Datos:** SQLite3
 * **Visualización:** Matplotlib, Seaborn
@@ -58,4 +58,4 @@ El algoritmo K-Means ($K=4$) validó los extremos de la segmentación manual (99
 
 1. Clonar el repositorio de forma local:
    ```bash
-   git clone [https://github.com/EduGovea/Proyectos-Personales-Auditoria-Analisis-de-datos-y-Machine-Learning.git](https://github.com/EduGovea/Proyectos-Personales-Auditoria-Analisis-de-datos-y-Machine-Learning.git)
+   git clone https://github.com/EduGovea/Proyectos-Personales-Auditoria-Analisis-de-datos-y-Machine-Learning.git
