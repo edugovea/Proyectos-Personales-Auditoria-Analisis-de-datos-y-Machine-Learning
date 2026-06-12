@@ -9,3 +9,4 @@ data/
 __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
+02-dashboard-logistica-tableau/
