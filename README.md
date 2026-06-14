@@ -100,6 +100,3 @@ documentado como desafío técnico) y clasificación de normativa por relevancia
 
 **Eduardo Govea** — Auditoría · Análisis de Datos · Machine Learning
 🔗 [LinkedIn](https://www.linkedin.com/in/eduardo-luis-govea) · [Tableau Public](https://public.tableau.com/app/profile/eduardo.govea)
-
-**Eduardo Govea** — Auditoría · Análisis de Datos · Machine Learning
-🔗 [LinkedIn](https://www.linkedin.com/in/eduardo-luis-govea) · [Tableau Public](https://public.tableau.com/app/profile/eduardo.govea)
