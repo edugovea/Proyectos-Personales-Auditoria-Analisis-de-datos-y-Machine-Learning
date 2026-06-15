@@ -14,7 +14,7 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 | 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Publicado |
 | 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + ciberseguridad | PostgreSQL (functions, stored procedures), trigger de inmutabilidad, motor de detección, Power BI | 🚧 En desarrollo |
 | 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 📋 Planificado |
-| 5 | Monitor BOCBA | Sistema end-to-end en producción | Web scraping (Playwright), clasificación con LLM/embeddings, alertas, Docker, AWS, GitHub Actions | 📋 Planificado |
+| 5 | Monitor BOCBA | Sistema end-to-end en producción | Web scraping (Playwright), alertas, Docker, AWS, GitHub Actions, clasificación con LLM/embeddings (próximamente) | 📋 Planificado |
 
 De describir datos (P1-P2) a predecir con ellos (P4), pasando por industrializar la detección (P3) y llevar a producción un sistema propio en la nube (P5).
 
@@ -53,7 +53,9 @@ El núcleo del proyecto es el criterio de auditor, no la infraestructura:
 
 Pensado como sistema industrializado, no como notebook de análisis. Dashboards en Power BI cierran el proyecto.
 
-`Python` · `PostgreSQL` · `pytest` · `Power BI`
+El proyecto se planifica y gestiona con un tablero Kanban en Jira (9 épicas, 30 historias), siguiendo un proceso deliberado: arquitectura → backlog → diseño → código.
+
+`Python` · `PostgreSQL` · `pytest` · `Power BI` · `Jira`
 
 ### 4 · Clasificador de Sentimiento — PNL 📋
 
@@ -68,18 +70,18 @@ El valor del proyecto no está en la métrica de accuracy, sino en el **análisi
 Proyecto 100% original, nacido de un problema laboral real: un sistema que monitorea el Boletín Oficial de la Ciudad de Buenos Aires, identifica la normativa relevante y avisa automáticamente. Es la carta de ingeniería de sistemas del portfolio: vive en producción, corre solo y la infraestructura responde a una necesidad genuina.
 
 - **Scraping con Playwright**, resolviendo el WAF de F5 BIG-IP (documentado como desafío técnico) + consumo de la API REST del Boletín.
-- **Clasificación de relevancia con LLM/embeddings:** en lugar de filtrar por keywords, el sistema entiende semánticamente cada publicación, decide si es relevante y genera un resumen.
+- **Clasificación de relevancia:** filtrado de la normativa por relevancia. *Evolución prevista:* clasificación semántica mediante embeddings o LLMs para reemplazar las reglas basadas exclusivamente en keywords y generar un resumen de cada publicación relevante.
 - **Alertas:** cuando aparece normativa relevante, llega un mail con el resumen generado, no solo el enlace.
 - **AWS:** el monitor corre 24/7 desplegado en la nube (EC2 / Lambda + EventBridge).
 - **GitHub Actions:** orquesta las corridas programadas y los tests.
 - **Docker:** el sistema se contenedoriza para desplegarlo de forma reproducible en la nube.
 
-`Python` · `Playwright` · `LLM / embeddings` · `Docker` · `AWS` · `GitHub Actions`
+`Python` · `Playwright` · `Docker` · `AWS` · `GitHub Actions` · `LLM / embeddings (previsto)`
 
 ## 🛠️ Stack general
 
 **Lenguajes y datos:** Python, SQL (SQLite / PostgreSQL)
-**Análisis y ML:** Pandas, NumPy, Scikit-Learn, LLM / embeddings
+**Análisis y ML:** Pandas, NumPy, Scikit-Learn, LLM / embeddings (próximamente)
 **Visualización / BI:** Tableau, Power BI, Matplotlib, Seaborn
 **Ingeniería:** Docker, pytest, GitHub Actions, AWS
 **Gestión:** Git, GitHub, Jira
