@@ -14,7 +14,7 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 | 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Publicado |
 | 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + ciberseguridad | PostgreSQL (functions, stored procedures), trigger de inmutabilidad, motor de detección, Power BI | 🚧 En desarrollo |
 | 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 📋 Planificado |
-| 5 | Monitor BOCBA | Sistema end-to-end en producción | Web scraping (Playwright), clasificación con LLM/embeddings, alertas, AWS, GitHub Actions | 📋 Planificado |
+| 5 | Monitor BOCBA | Sistema end-to-end en producción | Web scraping (Playwright), clasificación con LLM/embeddings, alertas, Docker, AWS, GitHub Actions | 📋 Planificado |
 
 De describir datos (P1-P2) a predecir con ellos (P4), pasando por industrializar la detección (P3) y llevar a producción un sistema propio en la nube (P5).
 
@@ -51,9 +51,9 @@ El núcleo del proyecto es el criterio de auditor, no la infraestructura:
 - **Severidad y trazabilidad** del hallazgo (`finding_id`, `control_iso`, `severidad`, `evidencia`, `estado`): permite mostrar el ciclo de vida completo del hallazgo.
 - **Validación rigurosa:** el generador guarda la verdad conocida (ground truth) por separado; los tests verifican que el motor detecta sin falsos negativos y maneja los casos ambiguos.
 
-Pensado como sistema industrializado, no como notebook de análisis. Contenedorización (Docker) y dashboards en Power BI cierran el proyecto.
+Pensado como sistema industrializado, no como notebook de análisis. Dashboards en Power BI cierran el proyecto.
 
-`Python` · `PostgreSQL` · `pytest` · `Power BI` · `Docker (reproducibilidad del entorno)`
+`Python` · `PostgreSQL` · `pytest` · `Power BI`
 
 ### 4 · Clasificador de Sentimiento — PNL 📋
 
@@ -72,8 +72,9 @@ Proyecto 100% original, nacido de un problema laboral real: un sistema que monit
 - **Alertas:** cuando aparece normativa relevante, llega un mail con el resumen generado, no solo el enlace.
 - **AWS:** el monitor corre 24/7 desplegado en la nube (EC2 / Lambda + EventBridge).
 - **GitHub Actions:** orquesta las corridas programadas y los tests.
+- **Docker:** el sistema se contenedoriza para desplegarlo de forma reproducible en la nube.
 
-`Python` · `Playwright` · `LLM / embeddings` · `AWS` · `GitHub Actions`
+`Python` · `Playwright` · `LLM / embeddings` · `Docker` · `AWS` · `GitHub Actions`
 
 ## 🛠️ Stack general
 
