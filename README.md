@@ -28,17 +28,17 @@ Segmentación RFM y clustering K-Means sobre Online Retail II (1M+ transacciones
 
 `Python` · `Pandas` · `SQL (SQLite)` · `Scikit-Learn` · `Matplotlib/Seaborn`
 
-### 2 · Dashboard Logístico — Tableau ✅
+## 2 · Dashboard Logístico — Tableau ✅
 
-Análisis de la cadena de entrega de Olist (~100k pedidos, 9 tablas). Pipeline reproducible en Pandas (`data_preparation.py`) que alimenta un dashboard interactivo en Tableau Public. Arquitectura de dos capas: Python prepara, Tableau presenta, versionadas juntas.
+Dashboard interactivo en Tableau Public para analizar la cadena de entrega de Olist (~100.000 pedidos, 9 tablas). El proyecto utiliza un pipeline reproducible en Python/Pandas (`data_preparation.py`) que consolida los datos logísticos y genera la tabla final utilizada por Tableau.
 
-**Insight destacado:** velocidad y confiabilidad son dos dimensiones distintas de la logística. Algunos estados tardan más por distancia pero cumplen el plazo prometido, mientras otros fallan en el cumplimiento por razones diferentes. El dashboard separa ambas para no confundirlas.
+Arquitectura de dos capas: **Python prepara los datos, Tableau los presenta**. El script de preparación, la documentación del pipeline y el dashboard quedan versionados juntos, asegurando trazabilidad entre transformación de datos e insights visuales.
 
-🔗 Ver dashboard en Tableau Public
+**Insight destacado:** velocidad y confiabilidad logística no son lo mismo. El dashboard separa tiempos reales de entrega y cumplimiento de promesa para identificar problemas distintos según estado/región.
 
-🔧 **Próxima mejora:** documentar el pipeline end-to-end en el README — mostrar de forma explícita el flujo Python prepara los datos → Tableau los visualiza, con el script de preparación y el dashboard versionados juntos.
+🔗 **Ver dashboard en Tableau Public**
 
-`Python` · `Pandas` · `Tableau Public`
+**Python · Pandas · Tableau Public**
 
 ### 3 · Auditoría Continua ISO 27001 🚧 En desarrollo
 
