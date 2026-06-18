@@ -1,8 +1,6 @@
 # 📦 Dashboard Logístico Olist — Entregas en Brasil 2017-2018
 
-Dashboard interactivo en Tableau Public para monitorear la cadena de entrega del
-e-commerce brasileño Olist: tiempos reales vs prometidos, demoras por región,
-segmentación de entregas y costos de flete.
+Dashboard interactivo en Tableau Public para monitorear la cadena de entrega del e-commerce brasileño Olist: tiempos reales vs prometidos, demoras por región, segmentación de entregas y costos de flete.
 
 🔗 **[Ver dashboard interactivo en Tableau Public](https://public.tableau.com/app/profile/eduardo.govea/viz/DashboardLogsticoOlist/DashboardLogsticoOlistEntregasenBrasil2017-2018)**
 
@@ -10,27 +8,35 @@ segmentación de entregas y costos de flete.
 
 ---
 
+## 🧭 Resumen ejecutivo
+
+Este proyecto construye un dashboard logístico en Tableau Public a partir del dataset público de Olist. La preparación de datos se realiza con un pipeline reproducible en Python/Pandas (`data_preparation.py`), que consolida información de pedidos, clientes e ítems en una tabla analítica final utilizada como fuente única por Tableau.
+
+La solución separa claramente dos capas: **Python prepara los datos y Tableau presenta los resultados**. Esto permite que las reglas de transformación, los filtros aplicados, las métricas logísticas y los criterios de calidad de datos queden documentados y versionados junto al dashboard.
+
+El principal aporte analítico es distinguir entre **velocidad de entrega** y **confiabilidad logística**. Algunos estados presentan mayores tiempos promedio por distancia o complejidad geográfica, pero cumplen el plazo prometido; otros muestran incumplimientos aun con tiempos menos extremos. El dashboard separa ambas dimensiones para evitar conclusiones simplistas.
+
+---
+
 ## 🎯 Objetivo
 
-Convertir ~100.000 pedidos distribuidos en 9 tablas relacionales en un dashboard
-ejecutivo que permita responder rápidamente preguntas clave de gestión logística:
+Convertir ~100.000 pedidos distribuidos en 9 tablas relacionales en un dashboard ejecutivo que permita responder rápidamente preguntas clave de gestión logística:
 
-- ¿Cuánto tarda la operación en entregar?
-- ¿Se cumple la fecha prometida al cliente?
-- ¿Dónde se concentran las mayores demoras?
-- ¿Qué estados presentan peor desempeño logístico?
-- ¿Cómo evoluciona el cumplimiento a lo largo del tiempo?
+* ¿Cuánto tarda la operación en entregar?
+* ¿Se cumple la fecha prometida al cliente?
+* ¿Dónde se concentran las mayores demoras?
+* ¿Qué estados presentan peor desempeño logístico?
+* ¿Cómo evoluciona el cumplimiento a lo largo del tiempo?
 
-El proyecto está construido con separación clara entre capa de datos y capa de visualización:
-Python prepara una tabla analítica reproducible y Tableau la utiliza como fuente única para el dashboard.
+El proyecto está construido con separación clara entre capa de datos y capa de visualización: Python prepara una tabla analítica reproducible y Tableau la utiliza como fuente única para el dashboard.
 
 ---
 
 ## 🛠️ Stack
 
-- **Python / Pandas** — limpieza, validación, joins y cálculo de métricas.
-- **Tableau Public** — visualización, segmentación y análisis ejecutivo.
-- **Dataset:** [Brazilian E-Commerce Public Dataset by Olist (Kaggle)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+* **Python / Pandas** — limpieza, validación, joins y cálculo de métricas.
+* **Tableau Public** — visualización, segmentación y análisis ejecutivo.
+* **Dataset:** [Brazilian E-Commerce Public Dataset by Olist (Kaggle)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
 ---
 
@@ -39,25 +45,19 @@ Python prepara una tabla analítica reproducible y Tableau la utiliza como fuent
 ```text
 02-dashboard-logistica-tableau/
 │
-├── README.md
-├── data_preparation.py
-├── 01_exploracion.ipynb
-├── requirements.txt
-├── .gitignore
-│
 ├── img/
 │   └── dashboard.png
 │
-└── data/
-    ├── .gitkeep
-    ├── olist_orders_dataset.csv          # no versionado
-    ├── olist_customers_dataset.csv       # no versionado
-    ├── olist_order_items_dataset.csv     # no versionado
-    └── pedidos_logistica.csv             # salida generada para Tableau
+├── .gitignore
+├── 01_exploracion.ipynb
+├── README.md
+├── data_preparation.py
+└── requirements.txt
 ```
 
-> Los CSVs crudos del dataset no se versionan en GitHub por tamaño y porque pertenecen a una fuente externa.
-> El archivo `pedidos_logistica.csv` puede regenerarse ejecutando el pipeline.
+> Los CSVs crudos del dataset Olist no se versionan en GitHub por tamaño y porque pertenecen a una fuente externa.
+> Para reproducir el pipeline, crear localmente una carpeta `data/`, ubicar allí los CSVs requeridos y ejecutar `python data_preparation.py`.
+> El script generará localmente `data/pedidos_logistica.csv`, archivo utilizado como fuente única para Tableau.
 
 ---
 
@@ -174,9 +174,9 @@ python data_preparation.py
 Resultado esperado:
 
 ```text
-Exportado .../data/pedidos_logistica.csv: XX filas, XX columnas
-Demora promedio: XX.X días
-% entregas a tiempo: XX.X%
+Exportado .../data/pedidos_logistica.csv: 96470 filas, 14 columnas
+Demora promedio: 12.1 días
+% entregas a tiempo: 93.2%
 ```
 
 ---
