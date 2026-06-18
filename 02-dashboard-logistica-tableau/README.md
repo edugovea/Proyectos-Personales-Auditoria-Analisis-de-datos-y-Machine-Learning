@@ -1,3 +1,11 @@
+## 🧭 Resumen ejecutivo
+
+Este proyecto construye un dashboard logístico en Tableau Public a partir del dataset público de Olist. La preparación de datos se realiza con un pipeline reproducible en Python/Pandas (`data_preparation.py`), que consolida información de pedidos, clientes e ítems en una tabla analítica final utilizada como fuente única por Tableau.
+
+La solución separa claramente dos capas: **Python prepara los datos y Tableau presenta los resultados**. Esto permite que las reglas de transformación, los filtros aplicados, las métricas logísticas y los criterios de calidad de datos queden documentados y versionados junto al dashboard.
+
+El principal aporte analítico es distinguir entre **velocidad de entrega** y **confiabilidad logística**. Algunos estados presentan mayores tiempos promedio por distancia o complejidad geográfica, pero cumplen el plazo prometido; otros muestran incumplimientos aun con tiempos menos extremos. El dashboard separa ambas dimensiones para evitar conclusiones simplistas.
+
 # 📦 Dashboard Logístico Olist — Entregas en Brasil 2017-2018
 
 Dashboard interactivo en Tableau Public para monitorear la cadena de entrega del
@@ -34,30 +42,21 @@ Python prepara una tabla analítica reproducible y Tableau la utiliza como fuent
 
 ---
 
-## 🧱 Estructura del proyecto
-
-```text
+🧱 Estructura del proyecto
 02-dashboard-logistica-tableau/
-│
-├── README.md
-├── data_preparation.py
-├── 01_exploracion.ipynb
-├── requirements.txt
-├── .gitignore
 │
 ├── img/
 │   └── dashboard.png
 │
-└── data/
-    ├── .gitkeep
-    ├── olist_orders_dataset.csv          # no versionado
-    ├── olist_customers_dataset.csv       # no versionado
-    ├── olist_order_items_dataset.csv     # no versionado
-    └── pedidos_logistica.csv             # salida generada para Tableau
-```
+├── .gitignore
+├── 01_exploracion.ipynb
+├── README.md
+├── data_preparation.py
+└── requirements.txt
 
-> Los CSVs crudos del dataset no se versionan en GitHub por tamaño y porque pertenecen a una fuente externa.
-> El archivo `pedidos_logistica.csv` puede regenerarse ejecutando el pipeline.
+Los CSVs crudos del dataset Olist no se versionan en GitHub por tamaño y porque pertenecen a una fuente externa.
+Para reproducir el pipeline, crear localmente una carpeta data/, ubicar allí los CSVs requeridos y ejecutar python data_preparation.py.
+El script generará localmente data/pedidos_logistica.csv, archivo utilizado como fuente única para Tableau.
 
 ---
 
@@ -174,9 +173,9 @@ python data_preparation.py
 Resultado esperado:
 
 ```text
-Exportado .../data/pedidos_logistica.csv: XX filas, XX columnas
-Demora promedio: XX.X días
-% entregas a tiempo: XX.X%
+Exportado .../data/pedidos_logistica.csv: 96470 filas, 14 columnas
+Demora promedio: 12.1 días
+% entregas a tiempo: 93.2%
 ```
 
 ---
