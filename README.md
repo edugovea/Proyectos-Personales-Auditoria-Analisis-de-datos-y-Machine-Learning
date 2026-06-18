@@ -36,7 +36,7 @@ Arquitectura de dos capas: **Python prepara los datos, Tableau los presenta**. E
 
 **Insight destacado:** velocidad y confiabilidad logística no son lo mismo. El dashboard separa tiempos reales de entrega y cumplimiento de promesa para identificar problemas distintos según estado/región.
 
-🔗 **Ver dashboard en Tableau Public**
+🔗 **[Ver dashboard en Tableau Public](https://public.tableau.com/app/profile/eduardo.govea/viz/DashboardLogsticoOlist/DashboardLogsticoOlistEntregasenBrasil2017-2018)**
 
 **Python · Pandas · Tableau Public**
 
