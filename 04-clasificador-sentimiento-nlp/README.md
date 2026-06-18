@@ -1,9 +1,8 @@
-# 04 - Clasificador de Sentimiento con NLP
+# 💬 Clasificador de Sentimiento con NLP
 
 📋 **Estado:** Planificado / En desarrollo
 
 ## Objetivo
-
 Construir un modelo de clasificación de sentimiento aplicado a reseñas de clientes, utilizando técnicas de procesamiento de lenguaje natural y machine learning supervisado.
 
 El proyecto busca analizar texto no estructurado para identificar tempranamente fricciones en la experiencia del usuario, clasificar opiniones positivas y negativas, detectar patrones de disconformidad y automatizar la categorización inicial de comentarios o reclamos.
