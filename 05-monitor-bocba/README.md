@@ -1,4 +1,4 @@
-# 05 - Monitor Normativo BOCBA
+# 🔎 05 - Monitor Normativo BOCBA
 
 🚧 **Estado:** Versión demo en desarrollo — próximamente a subir
 
