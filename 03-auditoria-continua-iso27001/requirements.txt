@@ -1,0 +1,5 @@
+# Dependencias del generador y los tests (Proyecto 3 - Auditoria Continua ISO 27001)
+psycopg2-binary>=2.9
+Faker>=25.0
+python-dotenv>=1.0
+pytest>=8.0
