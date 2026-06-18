@@ -12,11 +12,11 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 |---|----------|------|------------------------------|--------|
 | 1 | Ecommerce Customer Analytics | Análisis descriptivo + segmentación | SQL avanzado, RFM, K-Means no supervisado | ✅ Publicado |
 | 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Publicado |
-| 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + ciberseguridad | PostgreSQL (functions, stored procedures), trigger de inmutabilidad, motor de detección, Power BI | 🚧 En desarrollo |
+| 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | 🚧 Casi completo |
 | 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 📋 Planificado |
 | 5 | Monitor BOCBA | Sistema end-to-end en producción | Web scraping (Playwright), alertas, Docker, AWS, GitHub Actions, clasificación con LLM/embeddings (próximamente) | 📋 Planificado |
 
-De describir datos (P1-P2) a predecir con ellos (P4), pasando por industrializar la detección (P3) y llevar a producción un sistema propio en la nube (P5).
+La ruta del portfolio avanza desde análisis descriptivo y visualización ejecutiva (P1-P2), hacia detección industrializada con trazabilidad de auditoría (P3), modelos predictivos/NLP (P4) y automatización aplicada a una fuente pública real (P5).
 
 ## 📂 Proyectos
 
@@ -40,20 +40,23 @@ Arquitectura de dos capas: **Python prepara los datos, Tableau los presenta**. E
 
 **Python · Pandas · Tableau Public**
 
-### 3 · Auditoría Continua ISO 27001 🚧 En desarrollo
+### 3 · Auditoría Continua ISO 27001 🚧 Casi completo
 
-Sistema de detección de no conformidades ISO 27001 sobre logs de acceso. Un generador produce eventos de acceso sintéticos **realistas — con ruido y casos ambiguos, no anomalías limpias** — e inyecta cuatro tipos de incumplimiento (acceso post-baja, horario anómalo, escalamiento de privilegios, violación de segregación de funciones), cada uno mapeado a su control del Anexo A de ISO 27001:2022. Un motor en PostgreSQL (functions + stored procedures) detecta esas no conformidades y las registra como hallazgos con severidad y trazabilidad completa.
+Sistema de auditoría continua sobre logs de acceso sintéticos, orientado a detectar posibles no conformidades vinculadas a controles de ISO 27001:2022. El proyecto combina generación de eventos, motor de detección en PostgreSQL, trazabilidad de hallazgos y validación automatizada con `pytest`.
 
-El núcleo del proyecto es el criterio de auditor, no la infraestructura:
+El generador produce logs realistas con ruido operativo y casos ambiguos, no anomalías limpias. Sobre esos eventos se inyectan cuatro tipos de incumplimiento: acceso post-baja, horario anómalo, escalamiento de privilegios y violación de segregación de funciones. Cada anomalía queda mapeada a un control del Anexo A de ISO 27001:2022 (A.5.18, A.8.16, A.8.2, A.5.3).
 
-- **Trigger de inmutabilidad** sobre la tabla de hallazgos: una vez registrado, un hallazgo no se puede modificar ni borrar. Es el control de integridad de la evidencia de auditoría, garantizado en la capa de datos.
-- **Mapeo anomalía → control ISO** (A.5.18, A.8.16, A.8.2, A.5.3): detección con sentido de cumplimiento, no logs aleatorios.
-- **Severidad y trazabilidad** del hallazgo (`finding_id`, `control_iso`, `severidad`, `evidencia`, `estado`): permite mostrar el ciclo de vida completo del hallazgo.
-- **Validación rigurosa:** el generador guarda la verdad conocida (ground truth) por separado; los tests verifican que el motor detecta sin falsos negativos y maneja los casos ambiguos.
+El núcleo del proyecto es el criterio de auditoría aplicado a datos:
 
-Pensado como sistema industrializado, no como notebook de análisis. Dashboards en Power BI cierran el proyecto.
+- **Motor SQL en PostgreSQL:** funciones de detección y orquestación para registrar hallazgos.
+- **Tabla `findings`:** registro de hallazgos con severidad, evidencia, estado y trazabilidad.
+- **Trigger de inmutabilidad:** una vez registrado, un hallazgo no puede modificarse ni eliminarse.
+- **Mapeo anomalía → control ISO:** detección con sentido de cumplimiento, no solo análisis técnico de logs.
+- **Tests automatizados:** validación del motor contra la verdad conocida generada por el generador, sin falsos positivos ni negativos sobre el ruido.
 
-El proyecto se planifica y gestiona con un tablero Kanban en Jira (9 épicas, 30 historias), siguiendo un proceso deliberado: arquitectura → backlog → diseño → código.
+El proyecto se gestiona con un tablero Kanban en Jira, siguiendo un proceso deliberado: arquitectura → backlog → diseño → implementación → validación.
+
+*Estado: motor SQL y tests finalizados; pendiente dashboard básico en Power BI y README técnico final.*
 
 `Python` · `PostgreSQL` · `pytest` · `Power BI` · `Jira`
 
