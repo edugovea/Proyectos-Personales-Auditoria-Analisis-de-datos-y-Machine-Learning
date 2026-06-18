@@ -6,7 +6,6 @@ Lee los CSVs crudos desde data/, valida insumos mínimos, calcula métricas
 logísticas y exporta data/pedidos_logistica.csv.
 """
 
-import os
 from pathlib import Path
 
 import pandas as pd
