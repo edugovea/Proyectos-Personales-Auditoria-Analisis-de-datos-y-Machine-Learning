@@ -186,8 +186,27 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 # 6. Crear archivo .env a partir de .env.example
+#    (completar DATABASE_URL con la conexión a PostgreSQL local)
 
-# 7. Ejecutar tests
+# 7. Preparar la base de datos
+#    Se crea el rol y la base, y se cargan los scripts CONECTADO COMO 'auditor'
+#    para que los objetos queden a su nombre (evita problemas de permisos):
+psql -U postgres -c "CREATE ROLE auditor LOGIN PASSWORD 'tu_clave';"
+psql -U postgres -c "CREATE DATABASE iso27001 OWNER auditor;"
+
+# esquema base (db/init)
+psql -U auditor -d iso27001 -f db/init/01_schema.sql
+psql -U auditor -d iso27001 -f db/init/02_findings.sql
+
+# motor de detección y vistas (db/motor)
+psql -U auditor -d iso27001 -f db/motor/10_fn_detectar_a1.sql
+psql -U auditor -d iso27001 -f db/motor/11_fn_detectar_a2.sql
+psql -U auditor -d iso27001 -f db/motor/12_fn_detectar_a3.sql
+psql -U auditor -d iso27001 -f db/motor/13_fn_detectar_a4.sql
+psql -U auditor -d iso27001 -f db/motor/20_sp_ejecutar_auditoria.sql
+psql -U auditor -d iso27001 -f db/motor/30_vistas_powerbi.sql
+
+# 8. Ejecutar tests (regenera datos, corre el motor y valida)
 pytest
 ```
 

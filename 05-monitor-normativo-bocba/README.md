@@ -1,6 +1,6 @@
 # 🔎 05 - Monitor Normativo BOCBA
 
-🚧 **Estado:** Versión demo en desarrollo — próximamente a subir
+🚧 **Estado:** ~50% desarrollado — versión demo, próximamente a subir
 
 ## Objetivo
 
