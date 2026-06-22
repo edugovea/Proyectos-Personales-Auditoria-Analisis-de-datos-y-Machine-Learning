@@ -44,7 +44,7 @@ El proyecto busca transformar eventos técnicos en hallazgos con sentido de audi
 * **PostgreSQL** — almacenamiento, análisis y motor de detección.
 * **SQL / PLpgSQL** — funciones de detección, orquestación y controles.
 * **pytest** — validación automatizada del motor.
-* **Power BI** — visualización ejecutiva/operativa pendiente.
+* **Power BI** — visualización ejecutiva y operativa sobre vistas SQL.
 * **Jira** — planificación y gestión del proyecto.
 
 ---
@@ -218,19 +218,23 @@ Los tests automatizados validan la generación de datos, la ejecución del motor
 
 ---
 
-## 📊 Uso en Power BI
+## 📊 Visualización en Power BI
 
-El dashboard en Power BI queda previsto como cierre visual del proyecto.
+Power BI funciona como capa de presentación sobre el motor, conectándose por **Import** a dos vistas SQL: `vw_resumen_ejecutivo` (agregada) y `vw_detalle_hallazgos` (fila por hallazgo). La detección vive en la base; el dashboard solo lee. Esa separación es deliberada: la verdad está en PostgreSQL, no en el tablero.
 
-Objetivo del dashboard:
+### Dashboard ejecutivo
 
-* mostrar cantidad de hallazgos por severidad;
-* distribuir hallazgos por tipo de anomalía;
-* visualizar controles ISO más afectados;
-* separar vista ejecutiva y vista operativa;
-* facilitar lectura de riesgos y seguimiento.
+Responde *cuánto y de qué tipo*: KPIs de hallazgos por estado (total, abiertos, en revisión, cerrados, falsos positivos) y gráficos por control ISO, por severidad y por estado. El color codifica gravedad (no decora).
 
-Estado actual: pendiente de construcción final.
+![Dashboard ejecutivo](docs/img/dashboard_ejecutivo.png)
+
+### Dashboard operativo
+
+Permite trabajar el hallazgo caso por caso: tabla de detalle con la evidencia de cada hallazgo, filtros por control ISO, severidad, estado y tipo de anomalía, una tarjeta de conteo que reacciona a los filtros y resaltado de severidad por color para triage rápido.
+
+![Dashboard operativo](docs/img/dashboard_operativo.png)
+
+> El archivo `.pbix` se incluye en `powerbi/`. Como se conecta a la base local por las dos vistas, es reproducible: basta reconstruir la base (ver Reproducibilidad) y refrescar la conexión con el rol `auditor`.
 
 ---
 
@@ -266,14 +270,13 @@ Lección general: en auditoría de datos, detectar una anomalía no alcanza. Es 
 * Los datos son sintéticos y no representan logs reales de una organización.
 * El proyecto no reemplaza una auditoría formal ni una herramienta SIEM.
 * La detección se basa en reglas definidas para el MVP.
-* El dashboard Power BI queda pendiente como cierre visual.
 * Las conclusiones deben interpretarse dentro del alcance del dataset sintético y las reglas implementadas.
 
 ---
 
 ## ✅ Estado del proyecto
 
-🚧 **Casi completo**
+✅ **Completo (MVP)**
 
 Estado actual:
 
@@ -281,8 +284,7 @@ Estado actual:
 * Generador de logs implementado.
 * Tabla `findings` y trigger de inmutabilidad implementados.
 * Tests automatizados implementados.
-* Pendiente dashboard básico en Power BI.
-* Pendiente incorporación de capturas y documentación final del dashboard Power BI.
+* Dashboards Power BI ejecutivo y operativo construidos y documentados.
 
 ---
 
