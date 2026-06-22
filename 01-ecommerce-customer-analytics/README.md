@@ -20,6 +20,11 @@ Como paso previo al análisis, se desarrolló un pipeline de limpieza en Python 
 
 * **Resultado del proceso:** El dataset se depuró a un volumen de **779.425 transacciones válidas**, excluyendo de forma justificada el 27% del total original.
 
+> *Nota: los conteos por anomalía no son aditivos. Una misma fila puede caer en
+> varias categorías (p. ej., una factura cancelada con cantidad negativa) y los
+> filtros se aplican de forma secuencial, por lo que la suma supera al neto
+> efectivamente excluido (287.946 filas, 27%).*
+
 ## 🛠️ Metodología y Arquitectura
 El proyecto se dividió en fases lógicas para asegurar la reproducibilidad del análisis:
 1. **Manipulación de Datos (Pandas):** Carga, decodificación de caracteres (`latin-1`) y ejecución del pipeline de limpieza.
@@ -85,4 +90,10 @@ El algoritmo K-Means ($K=4$) validó los extremos de la segmentación manual (99
    jupyter notebook notebooks/01_exploracion_limpieza.ipynb
    ```
 
-> El dataset **Online Retail II** no se versiona en el repositorio por su tamaño. Descargarlo del [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/502/online+retail+ii) y colocarlo en la ruta esperada por el notebook.
+> El dataset **Online Retail II** no se versiona en el repositorio por su tamaño. Descargarlo del [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/502/online+retail+ii), exportarlo a CSV y guardarlo como:
+>
+> ```
+> 01-ecommerce-customer-analytics/data/online_retail_II.csv
+> ```
+>
+> El notebook lo lee desde `data/` con encoding `latin-1`.
