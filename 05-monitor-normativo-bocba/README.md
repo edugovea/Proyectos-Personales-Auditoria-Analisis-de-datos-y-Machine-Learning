@@ -37,11 +37,11 @@ Desde un enfoque de auditoría, el proyecto apunta a convertir publicaciones nor
 * pdfplumber
 * PyPDF2
 * SQLite
-* PostgreSQL
 * Git / GitHub
 
 ### Evolución prevista
 
+* Migración de SQLite a PostgreSQL para una arquitectura más robusta y escalable.
 * Docker / Docker Compose para facilitar la ejecución reproducible del proyecto.
 * Automatización periódica de consultas.
 * Alertas por palabras clave.
@@ -57,7 +57,7 @@ En una primera versión demo, el almacenamiento puede resolverse con SQLite. Com
 ## Estructura prevista del proyecto
 
 ```text
-05-monitor-bocba/
+05-monitor-normativo-bocba/
 │
 ├── data/
 │   ├── raw/

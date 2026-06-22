@@ -12,7 +12,7 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 |---|----------|------|------------------------------|--------|
 | 1 | Ecommerce Customer Analytics | Análisis descriptivo + segmentación | SQL avanzado, RFM, K-Means no supervisado | ✅ Publicado |
 | 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Publicado |
-| 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | 🚧 Casi completo |
+| 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | ✅ Publicado |
 | 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 📋 Planificado |
 | 5 | Monitor Normativo BOCBA | Automatización + procesamiento documental | Scraping de fuentes públicas, extracción de PDFs, búsqueda por keywords, persistencia (SQLite); evolución: PostgreSQL/Docker/LLM | 🚧 ~50% — demo en desarrollo |
 
@@ -40,7 +40,7 @@ Arquitectura de dos capas: **Python prepara los datos, Tableau los presenta**. E
 
 **Python · Pandas · Tableau Public**
 
-### 3 · Auditoría Continua ISO 27001 🚧 Casi completo
+### 3 · Auditoría Continua ISO 27001 ✅ Publicado
 
 Sistema de auditoría continua sobre logs de acceso sintéticos, orientado a detectar posibles no conformidades vinculadas a controles de ISO 27001:2022. El proyecto combina generación de eventos, motor de detección en PostgreSQL, trazabilidad de hallazgos y validación automatizada con `pytest`.
 
@@ -56,7 +56,9 @@ El núcleo del proyecto es el criterio de auditoría aplicado a datos:
 
 El proyecto se gestiona con un tablero Kanban en Jira, siguiendo un proceso deliberado: arquitectura → backlog → diseño → implementación → validación.
 
-*Estado: motor SQL y tests finalizados; pendiente dashboard básico en Power BI y README técnico final.*
+La capa de presentación cierra el flujo: dos dashboards en Power BI sobre vistas SQL —ejecutivo (KPIs por severidad, control ISO y estado) y operativo (detalle de hallazgos con filtros y evidencia)— manteniendo la detección en la base y la lectura en el tablero.
+
+*Estado: completo. Motor SQL, tests y dashboards Power BI finalizados y documentados.*
 
 `Python` · `PostgreSQL` · `pytest` · `Power BI` · `Jira`
 

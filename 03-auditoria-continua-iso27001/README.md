@@ -10,7 +10,7 @@ El proyecto combina generación de eventos, análisis en PostgreSQL, motor de de
 
 Este proyecto simula un escenario de auditoría continua sobre eventos de acceso. A partir de logs sintéticos generados con ruido operativo y casos ambiguos, el sistema detecta patrones compatibles con posibles incumplimientos de controles de seguridad de la información.
 
-La solución separa claramente tres capas: **Python genera los datos**, **PostgreSQL ejecuta el motor de detección** y **Power BI queda previsto como capa de presentación ejecutiva/operativa**.
+La solución separa claramente tres capas: **Python genera los datos**, **PostgreSQL ejecuta el motor de detección** y **Power BI funciona como capa de presentación ejecutiva/operativa**.
 
 El foco del proyecto no está en construir una infraestructura compleja, sino en demostrar criterio de auditoría aplicado a datos:
 

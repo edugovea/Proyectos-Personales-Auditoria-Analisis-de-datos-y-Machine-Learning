@@ -58,4 +58,31 @@ El algoritmo K-Means ($K=4$) validó los extremos de la segmentación manual (99
 
 1. Clonar el repositorio de forma local:
    ```bash
-   git clone https://github.com/EduGovea/Proyectos-Personales-Auditoria-Analisis-de-datos-y-Machine-Learning.git
+   git clone https://github.com/edugovea/Proyectos-Personales-Auditoria-Analisis-de-datos-y-Machine-Learning.git
+   ```
+
+2. Ingresar a la carpeta del proyecto:
+   ```bash
+   cd Proyectos-Personales-Auditoria-Analisis-de-datos-y-Machine-Learning/01-ecommerce-customer-analytics
+   ```
+
+3. Crear y activar un entorno virtual:
+   ```bash
+   python -m venv .venv
+   # Windows
+   .venv\Scripts\activate
+   # Linux / Mac
+   source .venv/bin/activate
+   ```
+
+4. Instalar las dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Abrir y ejecutar el notebook de análisis:
+   ```bash
+   jupyter notebook notebooks/01_exploracion_limpieza.ipynb
+   ```
+
+> El dataset **Online Retail II** no se versiona en el repositorio por su tamaño. Descargarlo del [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/502/online+retail+ii) y colocarlo en la ruta esperada por el notebook.
