@@ -55,16 +55,22 @@ El proyecto busca transformar eventos técnicos en hallazgos con sentido de audi
 03-auditoria-continua-iso27001/
 │
 ├── db/
-│   └── scripts SQL, funciones, vistas y objetos de base de datos
+│   ├── init/            # esquema base: tablas + findings con trigger de inmutabilidad
+│   └── motor/           # funciones de detección (A1–A4), orquestadora y vistas Power BI
 │
-├── generador/
-│   └── generación de logs sintéticos y datos controlados
+├── generador/           # generación de logs sintéticos con ruido y ground truth
 │
-├── tests/
-│   └── pruebas automatizadas del motor de detección
+├── tests/               # pruebas automatizadas del motor (pytest)
+│
+├── docs/
+│   └── img/             # capturas de los dashboards
+│
+├── powerbi/
+│   └── dashboard_auditoria_iso27001.pbix
 │
 ├── .env.example
 ├── .gitignore
+├── docker-compose.yml   # artefacto opcional de reproducibilidad (Docker diferido)
 ├── pytest.ini
 ├── requirements.txt
 └── README.md
