@@ -10,6 +10,8 @@ En lugar de depender de buscadores con retraso de indexación, consulta la **API
 
 El usuario de referencia es un **equipo legal / de control** que necesita una gacetilla diaria o semanal de novedades normativas: los criterios de qué vigilar y qué priorizar se calibraron con el pedido real de un área legal (leyes, designaciones de alto rango, cambios de estructura, informes finales de gestión y materias sensibles).
 
+![Tablero del Monitor Normativo BOCBA: resultados con semáforo de relevancia, etiquetas y filtros](docs/app_resultados.png)
+
 ## Componentes
 
 | Archivo | Qué hace |
@@ -60,7 +62,21 @@ py -X utf8 buscar_bocba.py 6850 "obra publica"     # una palabra/frase en ese bo
 py -X utf8 buscar_palabra.py "datos personales"
 ```
 
-Cada corrida deja en `reportes_bocba/` (carpeta local, excluida del repo): el reporte JSON que alimenta la app, el informe ejecutivo PDF, la gacetilla PDF con formato institucional, el caché de texto de los PDFs (que hace casi instantáneas las búsquedas repetidas) y copia de las normas detectadas.
+Cada corrida deja en `reportes_bocba/` (carpeta local, excluida del repo): el reporte JSON que alimenta la app, los PDFs de salida, el caché de texto (que hace casi instantáneas las búsquedas repetidas) y copia de las normas detectadas.
+
+La app arranca con una pantalla de bienvenida y el usuario decide qué buscar:
+
+![Pantalla de bienvenida de la app](docs/app_bienvenida.png)
+
+## Salidas en PDF
+
+Tres productos por corrida — la **edición institucional** (curada, solo relevancia ALTA, lista para circular por mail), la **gacetilla completa** agrupada por organismo con identidad Obelisco, y el **informe ejecutivo** con tablas por nivel:
+
+<p align="center">
+  <img src="docs/gacetilla_institucional.png" width="32%" alt="Edición institucional (solo ALTA)">
+  <img src="docs/gacetilla_completa.png" width="32%" alt="Gacetilla completa estilo Obelisco">
+  <img src="docs/informe_ejecutivo.png" width="32%" alt="Informe ejecutivo por nivel de relevancia">
+</p>
 
 ## Roadmap
 
