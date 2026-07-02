@@ -10,3 +10,21 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 data/
+
+# Carpeta de salida del monitor (reportes, cache, logs, debug)
+reportes_bocba/
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Entornos virtuales
+venv/
+.venv/
+
+# Configuracion local del editor / herramientas (rutas propias de esta maquina)
+.vscode/
+.claude/
+
+# Credenciales (importante para cuando agregues el mail)
+.env

@@ -1,0 +1,37 @@
+# Tema basado en el sistema de diseno oficial del GCBA: OBELISCO V2
+# https://gcba.github.io/Obelisco-V2
+# No fijamos "base": la app sigue el modo claro/oscuro del sistema (Windows).
+
+[theme]
+primaryColor = "#336ACC"          # Obelisco primary (azul GCBA)
+linkColor = "#336ACC"
+baseRadius = "0.5rem"
+buttonRadius = "0.5rem"
+font = "Open Sans"                 # cuerpo
+headingFont = "Archivo"           # titulos
+
+# ---------------- MODO CLARO (Obelisco light) ----------------
+[theme.light]
+backgroundColor = "#FFFFFF"            # blanco (como estaba antes)
+secondaryBackgroundColor = "#F3F6F9"   # bg-light
+textColor = "#101E37"                  # body-primary
+primaryColor = "#336ACC"
+borderColor = "#E6EBF0"                # border-neutral
+
+[theme.light.sidebar]
+backgroundColor = "#F3F6F9"
+secondaryBackgroundColor = "#E6EBF0"
+textColor = "#101E37"
+
+# ---------------- MODO OSCURO (True Black / AMOLED) ----------------
+[theme.dark]
+backgroundColor = "#000000"            # negro puro (ideal AMOLED/OLED)
+secondaryBackgroundColor = "#0D0D0D"   # inputs/tarjetas apenas elevados
+textColor = "#F5F5F5"                  # blanco para maxima claridad
+primaryColor = "#4A86E8"               # azul mas claro, alto contraste sobre negro
+borderColor = "#262626"                # bordes visibles sobre negro
+
+[theme.dark.sidebar]
+backgroundColor = "#000000"
+secondaryBackgroundColor = "#0D0D0D"
+textColor = "#F5F5F5"

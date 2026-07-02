@@ -1,111 +1,78 @@
 # 🔎 05 - Monitor Normativo BOCBA
 
-🚧 **Estado:** ~50% desarrollado — versión demo, próximamente a subir
+✅ **Estado:** funcional — motor de vigilancia, buscador histórico y tablero web operativos, en evolución continua.
 
-## Objetivo
+## Qué es
 
-Desarrollar una herramienta experimental para facilitar la búsqueda, filtrado y seguimiento de normativa publicada en el Boletín Oficial de la Ciudad de Buenos Aires, utilizando fuentes públicas.
+Herramienta de **vigilancia y búsqueda de normativa** publicada en el Boletín Oficial de la Ciudad de Buenos Aires (BOCBA), pensada desde la lógica del auditor: convierte publicaciones normativas dispersas en información consultable, filtrable y documentada, con un **criterio de relevancia explicable** orientado a auditoría, tecnología, datos y control interno.
 
-El proyecto está orientado a explorar cómo la automatización, el procesamiento documental y la organización de información normativa pueden apoyar tareas de auditoría, control interno, cumplimiento normativo y monitoreo de información pública.
+En lugar de depender de buscadores con retraso de indexación, consulta la **API REST oficial del Boletín**, enumera todos los documentos publicados cada día, descarga los PDFs, extrae su texto y busca directamente sobre lo que realmente salió publicado.
 
-## Valor analítico
+El usuario de referencia es un **equipo legal / de control** que necesita una gacetilla diaria o semanal de novedades normativas: los criterios de qué vigilar y qué priorizar se calibraron con el pedido real de un área legal (leyes, designaciones de alto rango, cambios de estructura, informes finales de gestión y materias sensibles).
 
-La herramienta busca reducir tiempos de búsqueda normativa, mejorar la trazabilidad de publicaciones relevantes y generar insumos estructurados para análisis de auditoría, cumplimiento y seguimiento de cambios regulatorios.
+## Componentes
 
-Desde un enfoque de auditoría, el proyecto apunta a convertir publicaciones normativas dispersas en información consultable, filtrable y documentada.
+| Archivo | Qué hace |
+|---|---|
+| `monitor_bocba_v2.py` | **El motor.** Consulta la API por fecha o rango, descarga los PDFs en paralelo (con caché y reintentos), extrae texto con PyMuPDF, busca keywords/siglas/sinónimos y clasifica cada norma con la matriz de riesgo. Genera reporte JSON, informe ejecutivo PDF y gacetilla PDF, y archiva los PDFs de las normas detectadas. Omite automáticamente los días sin boletín propio (fines de semana/feriados). |
+| `app.py` | **El tablero (Streamlit).** Pantalla de bienvenida, filtros por fecha (Hoy / Esta semana / Rango con calendario), relevancia, temas, palabra clave y N° de boletín; tabla tipo Excel (AgGrid) con badges, filtros por columna insensibles a tildes y selección de filas; KPIs, gráfico por día, detalle de menciones con página y contexto; descarga de CSV y de la gacetilla filtrada en PDF; y activación de la **automatización diaria** (Programador de tareas de Windows) desde la propia interfaz. |
+| `buscar_bocba.py` | **Búsqueda por número de boletín.** La API solo consulta por fecha, así que resuelve iterativamente a qué fecha corresponde el número pedido. Alcance histórico comprobado (boletines de 2024). Analiza el boletín completo con el criterio del monitor o busca una palabra puntual; genera gacetilla PDF y deja el reporte disponible para la app. |
+| `buscar_palabra.py` | Búsqueda rápida de una palabra o frase libre en el boletín de hoy (o una fecha dada), reutilizando caché y motor. |
 
-## Enfoque previsto
+## El criterio de relevancia: matriz de riesgo por materia
 
-* Consulta de publicaciones del Boletín Oficial a partir de fuentes públicas.
-* Descarga y procesamiento de documentos publicados.
-* Extracción de texto desde PDFs.
-* Búsqueda por palabras clave.
-* Filtros por fecha, organismo, tema o tipo de norma.
-* Organización de resultados relevantes.
-* Persistencia de resultados para seguimiento histórico.
-* Exportación de información para análisis posterior.
-* Posible generación de alertas o reportes.
+La decisión de diseño central del proyecto. En vez de puntuar por volumen de menciones (que convierte cualquier tanda de designaciones en falsa alarma), la clasificación parte del **piso de riesgo de la materia** — el tema define de dónde nace cada norma — y se ajusta con reglas y agravantes:
+
+1. **Piso por materia** (editable en `PISOS`): datos personales, ciberseguridad, control interno, auditoría o transparencia *nacen* en ALTA; contrataciones, IA o sistemas en MEDIA; designaciones y ceses de rutina en BAJA.
+2. **Reglas del usuario final:** las Leyes y las designaciones/renuncias de Director General "para arriba" son siempre ALTA.
+3. **Anti-boilerplate:** una materia de piso ALTA solo lo activa con mención *sustantiva* (el tema está en el sumario o se repite en el cuerpo) — una mención suelta suele ser cláusula estándar de contrato, no una norma *sobre* el tema.
+4. **Agravantes acotados:** el score (menciones en cuerpo, cantidad, ubicación) puede subir la norma **un solo nivel** — el volumen nunca fabrica una ALTA — y ordena los resultados dentro de cada nivel.
+
+El resultado es un criterio **explicable y defendible**: "es ALTA porque trata datos personales en el cuerpo normativo" es una frase que se puede sostener ante cualquiera. La calibración se validó reclasificando el histórico completo y revisando la distribución resultante.
 
 ## Stack técnico
 
-### Tecnologías utilizadas / probadas
+* **Python** — requests, PyMuPDF (`fitz`), ReportLab, pandas
+* **Streamlit** + **streamlit-aggrid** para el tablero (identidad visual basada en el sistema de diseño Obelisco V2 del GCBA)
+* Persistencia en **JSON + caché de texto** (decisión deliberada: simple, portable y auditable a esta escala; migrar a PostgreSQL es evolución posible, no necesidad actual)
+* Automatización con el **Programador de tareas de Windows**
 
-* Python
-* Pandas
-* Requests
-* BeautifulSoup
-* pdfplumber
-* PyPDF2
-* SQLite
-* Git / GitHub
-
-### Evolución prevista
-
-* Migración de SQLite a PostgreSQL para una arquitectura más robusta y escalable.
-* Docker / Docker Compose para facilitar la ejecución reproducible del proyecto.
-* Automatización periódica de consultas.
-* Alertas por palabras clave.
-* Exportación de resultados a CSV, Excel o PDF.
-* Evaluación de Selenium solo si alguna fuente pública requiere navegación dinámica.
-
-## Enfoque técnico previsto
-
-La herramienta está pensada para consultar fuentes públicas, descargar o procesar documentos normativos, extraer texto desde PDFs, aplicar filtros por palabras clave y almacenar resultados relevantes en una base de datos para seguimiento histórico.
-
-En una primera versión demo, el almacenamiento puede resolverse con SQLite. Como evolución, se contempla PostgreSQL y Docker para una arquitectura más robusta, reproducible y escalable.
-
-## Estructura prevista del proyecto
-
-```text
-05-monitor-normativo-bocba/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── notebooks/
-│   └── 01_exploracion_fuente_publica.ipynb
-│
-├── src/
-│   ├── downloader.py
-│   ├── pdf_extractor.py
-│   ├── keyword_search.py
-│   ├── database.py
-│   └── export_results.py
-│
-├── reports/
-│   └── ejemplos_busqueda.md
-│
-├── README.md
-└── requirements.txt
+```powershell
+py -m pip install -r requirements.txt
 ```
 
-## Posibles casos de uso
+## Cómo se usa
 
-* Búsqueda rápida de normativa por palabras clave.
-* Seguimiento de publicaciones vinculadas a organismos específicos.
-* Identificación de normas relacionadas con auditoría, control interno, datos personales, tecnología o cumplimiento.
-* Organización de resultados para análisis posterior.
-* Generación de insumos para reportes o tableros.
+```powershell
+# El tablero web
+py -m streamlit run app.py
+
+# Vigilancia por fecha
+py -X utf8 monitor_bocba_v2.py                          # boletín de hoy
+py -X utf8 monitor_bocba_v2.py 24-06-2026               # fecha puntual
+py -X utf8 monitor_bocba_v2.py 24-06-2026 01-07-2026    # rango (inclusive)
+
+# Búsqueda por número de boletín
+py -X utf8 buscar_bocba.py 7394                    # boletín completo
+py -X utf8 buscar_bocba.py 6850 "obra publica"     # una palabra/frase en ese boletín
+
+# Búsqueda de una palabra en el boletín de hoy
+py -X utf8 buscar_palabra.py "datos personales"
+```
+
+Cada corrida deja en `reportes_bocba/` (carpeta local, excluida del repo): el reporte JSON que alimenta la app, el informe ejecutivo PDF, la gacetilla PDF con formato institucional, el caché de texto de los PDFs (que hace casi instantáneas las búsquedas repetidas) y copia de las normas detectadas.
+
+## Roadmap
+
+* **Feedback del auditor:** botón en la app para marcar alertas como útiles/no útiles — construye el dataset etiquetado.
+* **Clasificador ML** (TF-IDF + scikit-learn, o embeddings) entrenado con ese feedback, como módulo opcional con *fallback* a la matriz de reglas — la relevancia nunca deja de ser explicable.
+* Búsqueda en vivo (por palabra o número de boletín) directamente desde el tablero.
+* Ajuste continuo de la matriz de materias y del diccionario de organismos según el uso real.
+
+## Transparencia: rol de la IA en este proyecto
+
+Este proyecto fue desarrollado **con asistencia de IA** (Claude, de Anthropic). En particular, la interfaz web — el front-end, el CSS y el JavaScript de la tabla — fue escrita por IA, ya que no es mi especialidad. Las decisiones que definen la herramienta son propias: el enfoque de auditoría, la matriz de riesgo por materia, los criterios del área usuaria, la selección de qué vigilar y la validación de resultados contra datos reales. Lo documento porque la transparencia metodológica es parte del oficio de auditar.
 
 ## Aviso
 
-Este proyecto es personal, educativo y demostrativo. No representa una herramienta oficial del Gobierno de la Ciudad de Buenos Aires ni contiene información interna, reservada o confidencial.
-
-Toda la información utilizada proviene de fuentes públicas.
-
-## Próximos pasos
-
-* Publicar versión demo sanitizada.
-* Documentar flujo de búsqueda.
-* Agregar ejemplos con datos públicos.
-* Incorporar capturas y casos de uso.
-* Implementar persistencia inicial en SQLite.
-* Evaluar evolución a PostgreSQL.
-* Incorporar Docker para facilitar la ejecución del entorno.
-* Analizar posible incorporación de alertas por palabras clave.
-
-## Estado del repositorio
-
-Este proyecto forma parte de un portfolio personal de auditoría, análisis de datos, automatización y cumplimiento normativo. Actualmente se encuentra en etapa de desarrollo de una versión demo pública.
-
+Proyecto **personal, educativo y demostrativo**. No es una herramienta oficial del Gobierno de la Ciudad de Buenos Aires ni contiene información interna, reservada o confidencial. Toda la información proviene de fuentes públicas (la API pública del Boletín Oficial). La relevancia y el tipo de acto son inferidos automáticamente y requieren validación profesional.

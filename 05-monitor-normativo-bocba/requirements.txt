@@ -1,0 +1,9 @@
+# Monitor Normativo BOCBA - dependencias
+# Instalar con:  py -m pip install -r requirements.txt
+
+streamlit>=1.40      # st.segmented_control, st.pills, column_config, tema nativo
+streamlit-aggrid>=1.0  # tabla tipo Excel con filtros por columna (AgGrid)
+pandas>=2.0
+requests>=2.31
+pymupdf>=1.24         # extraccion de texto de PDFs (import fitz)
+reportlab>=4.0        # generacion de PDF ejecutivo y gacetilla
