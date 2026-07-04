@@ -10,10 +10,10 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 
 | # | Proyecto | Foco | Salto técnico que incorpora | Estado |
 |---|----------|------|------------------------------|--------|
-| 1 | Ecommerce Customer Analytics | Análisis descriptivo + segmentación | SQL avanzado, RFM, K-Means no supervisado | ✅ Publicado |
-| 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Publicado |
-| 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | ✅ Completo |
-| 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 📋 Planificado |
+| 1 | Ecommerce Customer Analytics | Análisis descriptivo + segmentación | SQL avanzado, RFM, K-Means no supervisado | ✅ Completado |
+| 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Completado |
+| 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | ✅ Completado |
+| 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 🚧 En desarrollo |
 | 5 | Monitor Normativo BOCBA | Automatización + procesamiento documental | Consumo de API pública, extracción de texto de PDFs (PyMuPDF), matriz de riesgo por materia, tablero Streamlit, automatización diaria, gacetillas PDF; evolución: feedback del auditor → ML | ✅ Completado |
 | 6 | Auditoría Continua de IA + Seguridad | AI Assurance + seguridad | AI assurance de un modelo ML (SHAP, drift, model card, fairness) + DevSecOps (SAST, escaneo de dependencias, log con hash-chaining); mapeo a ISO/IEC 42001 y NIST AI RMF | 📋 Planificado |
 
@@ -47,7 +47,7 @@ Arquitectura de dos capas: **Python prepara los datos, Tableau los presenta**. E
 
 `Python` · `Pandas` · `Tableau Public`
 
-### 3 · Auditoría Continua ISO 27001 ✅ Completo
+### 3 · Auditoría Continua ISO 27001 ✅ Completado
 
 Sistema de auditoría continua sobre logs de acceso sintéticos, orientado a detectar posibles no conformidades vinculadas a controles de ISO 27001:2022. El proyecto combina generación de eventos, motor de detección en PostgreSQL, trazabilidad de hallazgos y validación automatizada con `pytest`.
 
@@ -70,7 +70,7 @@ El proyecto se gestiona con un tablero Kanban en Jira, siguiendo un proceso deli
 
 `Python` · `PostgreSQL` · `pytest` · `Power BI` · `Jira`
 
-### 4 · Clasificador de Sentimiento — PNL 📋
+### 4 · Clasificador de Sentimiento — PNL 🚧
 
 **Evolución del Proyecto 2 sobre el mismo dataset Olist.** Si el P2 *describe* la operación logística con BI, el P4 da el salto al *modelado predictivo*: clasifica ~100k reseñas reales de Olist (portugués) en positivas/negativas, usando el puntaje de estrellas como etiqueta (aprendizaje supervisado).
 
