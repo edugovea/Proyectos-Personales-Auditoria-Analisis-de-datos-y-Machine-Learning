@@ -25,7 +25,7 @@ La ruta del portfolio avanza desde análisis descriptivo y visualización ejecut
 
 ## 📂 Proyectos
 
-### 1 · Ecommerce Customer Analytics ✅
+### 1 · Ecommerce Customer Analytics ✅ Completado
 
 Segmentación RFM y clustering K-Means sobre Online Retail II (1M+ transacciones, retail UK). Limpieza auditada en Python, persistencia en SQLite, métricas RFM con CTEs en SQL, análisis de cohortes y validación del modelo no supervisado contra reglas de negocio.
 
@@ -33,7 +33,7 @@ Segmentación RFM y clustering K-Means sobre Online Retail II (1M+ transacciones
 
 `Python` · `Pandas` · `SQL (SQLite)` · `Scikit-Learn` · `Matplotlib/Seaborn`
 
-### 2 · Dashboard Logístico — Tableau ✅
+### 2 · Dashboard Logístico — Tableau ✅ Completado
 
 Dashboard interactivo en Tableau Public para analizar la cadena de entrega de Olist (~100.000 pedidos, 9 tablas). El proyecto utiliza un pipeline reproducible en Python/Pandas (`data_preparation.py`) que consolida los datos logísticos y genera la tabla final utilizada por Tableau.
 
@@ -70,7 +70,7 @@ El proyecto se gestiona con un tablero Kanban en Jira, siguiendo un proceso deli
 
 `Python` · `PostgreSQL` · `pytest` · `Power BI` · `Jira`
 
-### 4 · Clasificador de Sentimiento — PNL 🚧
+### 4 · Clasificador de Sentimiento — PNL 🚧 En desarrollo
 
 **Evolución del Proyecto 2 sobre el mismo dataset Olist.** Si el P2 *describe* la operación logística con BI, el P4 da el salto al *modelado predictivo*: clasifica ~100k reseñas reales de Olist (portugués) en positivas/negativas, usando el puntaje de estrellas como etiqueta (aprendizaje supervisado).
 
@@ -99,7 +99,7 @@ Proyecto original nacido de un problema laboral real: vigilancia y búsqueda de 
 
 `Python` · `Requests` · `PyMuPDF` · `ReportLab` · `Streamlit` · `AgGrid` · `Git/GitHub` · *(evolución: `scikit-learn` · `embeddings`)*
 
-### 6 · Auditoría Continua de IA + Seguridad 📋
+### 6 · Auditoría Continua de IA + Seguridad 📋 Planificado
 
 **Continuación y evolución del Proyecto 3.** Toma el motor de auditoría continua del P3 —sobre la misma base de datos inventada (logs sintéticos con *ground truth*)— y lo lleva a **AI Assurance + seguridad**: el sistema deja de auditar solo controles y pasa a auditar también un **modelo de machine learning**, dentro de una envoltura de controles de ciberseguridad.
 
