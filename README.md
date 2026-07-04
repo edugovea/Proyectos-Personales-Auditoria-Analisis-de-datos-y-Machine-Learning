@@ -14,7 +14,7 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 | 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Publicado |
 | 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | ✅ Completo |
 | 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 📋 Planificado |
-| 5 | Monitor Normativo BOCBA | Automatización + procesamiento documental | Consumo de API pública, extracción de texto de PDFs (PyMuPDF), matriz de riesgo por materia, tablero Streamlit, gacetillas PDF automatizadas; evolución: feedback del auditor → ML | ✅ Funcional — en evolución |
+| 5 | Monitor Normativo BOCBA | Automatización + procesamiento documental | Consumo de API pública, extracción de texto de PDFs (PyMuPDF), matriz de riesgo por materia, tablero Streamlit, automatización diaria, gacetillas PDF; evolución: feedback del auditor → ML | ✅ Completado |
 | 6 | Auditoría Continua de IA + Seguridad | AI Assurance + seguridad | AI assurance de un modelo ML (SHAP, drift, model card, fairness) + DevSecOps (SAST, escaneo de dependencias, log con hash-chaining); mapeo a ISO/IEC 42001 y NIST AI RMF | 📋 Planificado |
 
 La ruta del portfolio avanza desde análisis descriptivo y visualización ejecutiva (P1-P2), hacia detección industrializada con trazabilidad de auditoría (P3), modelos predictivos/NLP (P4), automatización aplicada a una fuente pública real (P5) y aseguramiento de modelos de IA con seguridad (P6).
@@ -78,7 +78,7 @@ El valor del proyecto no está en la métrica de accuracy, sino en el **análisi
 
 `Python` · `Scikit-Learn` · `TF-IDF` · `Regresión Logística` · (opcional: `Hugging Face`)
 
-### 5 · Monitor Normativo BOCBA ✅ Funcional — en evolución
+### 5 · Monitor Normativo BOCBA ✅ Completado
 
 Proyecto original nacido de un problema laboral real: vigilancia y búsqueda de normativa del Boletín Oficial de la Ciudad de Buenos Aires sobre **fuentes públicas** (API REST oficial), con criterio de relevancia explicable orientado a auditoría. Es la carta de automatización del portfolio.
 
@@ -86,6 +86,14 @@ Proyecto original nacido de un problema laboral real: vigilancia y búsqueda de 
 - **Tablero Streamlit**: búsqueda por fecha, tema, palabra libre o número de boletín (con descarga en vivo del histórico — comprobado hasta 2022), tabla tipo Excel, y **automatización diaria** vía Programador de tareas desde la propia interfaz.
 - **Salidas**: reporte JSON, informe ejecutivo PDF, gacetilla completa y **edición institucional curada** lista para circular.
 - *Evolución prevista:* botón de feedback del auditor → dataset etiquetado → clasificador ML con fallback a reglas.
+
+**Mejoras destacadas de la última iteración (julio 2026):**
+
+- **Matriz de riesgo por materia** calibrada con criterios reales de un área legal, con regla *anti-boilerplate*: distingue una norma *sobre* datos personales de una cláusula estándar de contrato que solo los menciona.
+- **Búsqueda en vivo por número de boletín** desde la app: si no está en la biblioteca local, lo trae del BOCBA al momento (alcance histórico comprobado hasta 2022).
+- **Automatización diaria verificada de punta a punta** (Programador de tareas de Windows), con manejo correcto de fines de semana y feriados sin boletín propio.
+- **Tres salidas PDF por corrida**: informe ejecutivo, gacetilla completa con identidad Obelisco y edición institucional curada (solo relevancia ALTA) lista para circular por mail.
+- **UX de buscador**: pantalla de bienvenida, filtros neutros que decide el usuario, tabla tipo Excel con badges y selección de filas, y capturas reales en el README del proyecto.
 
 > Proyecto personal y educativo, basado en información pública. No es una herramienta oficial del Gobierno de la Ciudad. Interfaz desarrollada con asistencia de IA (detalle en el README del proyecto).
 
