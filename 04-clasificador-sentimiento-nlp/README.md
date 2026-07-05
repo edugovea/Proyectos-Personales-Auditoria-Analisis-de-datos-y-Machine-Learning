@@ -1,6 +1,6 @@
 # 💬 Clasificador de Sentimiento con NLP
 
-📋 **Estado:** Planificado
+🚧 **Estado:** En desarrollo
 
 > **Continuación del Proyecto 2.** Sobre el mismo dataset **Olist**, este proyecto da el salto de la visualización descriptiva (BI) al modelado predictivo: del *qué pasó* al *qué dice el cliente*.
 
