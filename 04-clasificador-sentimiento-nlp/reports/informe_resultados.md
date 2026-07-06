@@ -2,6 +2,7 @@
 
 **Proyecto 4** · Continuación del Proyecto 2 sobre el dataset Olist
 **Modelo base:** TF-IDF (unigramas y bigramas, `min_df=5`) + Regresión logística (`class_weight='balanced'`)
+**Modelo de comparación:** BERTimbau base (`neuralmind/bert-base-portuguese-cased`) con fine-tuning de 2 épocas
 **Fecha:** julio 2026
 
 ---
@@ -79,7 +80,49 @@ faltando peças" es negativo requiere procesar el orden y la estructura de la fr
 no solo qué palabras contiene. Este es el argumento empírico para comparar contra un
 transformer (BERTimbau), que sí modela contexto.
 
-## 4. Limitaciones y sesgos
+## 4. Comparación contra un transformer: BERTimbau
+
+Para cuantificar el límite estructural del modelo lineal (sección 3.2), se realizó
+fine-tuning de **BERTimbau** — un BERT pre-entrenado en portugués brasileño — sobre el
+mismo split de entrenamiento (mismo `random_state`, comparación directa sobre el mismo
+conjunto de test).
+
+| Métrica | Lineal (TF-IDF + RL) | BERTimbau | Diferencia |
+|---|---|---|---|
+| Accuracy | 0.93 | **0.95** | +2 pts |
+| F1 macro | 0.91 | **0.94** | +3 pts |
+| Precision negativo | 0.83 | **0.91** | +8 pts |
+| **Recall negativo** | **0.94** | 0.92 | **-2 pts** |
+| Errores totales en test | 556 | 366 | -34% |
+
+### 4.1 Qué resuelve el contexto (y qué no)
+
+Sobre los 556 errores del modelo lineal:
+
+- **BERTimbau resuelve 298 (54%)** — concentrados en las reseñas mixtas/concesivas,
+  donde entender que "porém" invierte lo que sigue requiere procesar la estructura de
+  la frase, no solo contar palabras.
+- **258 errores (46%) persisten en ambos modelos.** Al revisarlos, dominan las
+  categorías de *etiqueta ruidosa* y *texto no informativo*: "Recebi a máscara com
+  trincas, como faço para reclamar?" con puntaje alto, "Sem comentários" etiquetado
+  positivo, texto basura. Ninguna arquitectura puede corregir un dato donde el texto y
+  la etiqueta se contradicen — este es el **piso de ruido irreducible** del dataset,
+  ahora medido empíricamente (~3,4% del test).
+
+### 4.2 El "mejor" modelo depende de la métrica de negocio
+
+Un matiz central para la decisión: en la métrica que este proyecto prioriza — el
+**recall de la clase negativa** (no perderse quejas) — el modelo lineal es levemente
+superior (0.94 vs 0.92). BERTimbau gana en todo lo demás, especialmente en reducir
+falsas alarmas (+8 pts de precision negativa).
+
+A eso se suma el costo operativo: la regresión logística entrena en segundos en CPU;
+BERTimbau requirió ~20 minutos en GPU (T4) y su inferencia es órdenes de magnitud más
+lenta. Para un tablero de alertas de reclamos donde el recall negativo manda y el
+volumen es alto, el modelo lineal es defendible; para clasificación de propósito
+general con menos falsas alarmas, el transformer justifica su costo.
+
+## 5. Limitaciones y sesgos
 
 - **Etiquetado por estrellas:** proxy imperfecto del sentimiento del texto (ver 3.1).
 - **Descarte de 3★:** simplifica el problema binario pero elimina justo los casos
@@ -88,11 +131,22 @@ transformer (BERTimbau), que sí modela contexto.
   los resultados no generalizan al total de órdenes.
 - **Dominio temporal y de plataforma:** e-commerce brasileño 2016-2018; el vocabulario
   y los patrones de queja pueden no transferirse a otros dominios.
+- **Longitud truncada:** los comentarios están limitados a ~208 caracteres por la
+  plataforma, lo que favorece reseñas telegráficas y ambiguas.
 
-## 5. Próximos pasos
+## 6. Conclusiones
 
-1. Comparar contra un transformer pre-entrenado en portugués (**BERTimbau**) sobre los
-   mismos 556 errores, para cuantificar cuántas reseñas mixtas resuelve el contexto.
-2. Evaluar un etiquetado alternativo para medir el ruido (p. ej. re-etiquetar a mano
-   una muestra y medir la concordancia texto-estrellas).
-3. Documentar las conclusiones finales en el README del proyecto.
+1. El modelo base supera ampliamente al baseline (0.93 vs 0.71) y cumple el objetivo
+   de negocio: detecta el 94% de las reseñas negativas.
+2. El análisis manual de errores revela que **una parte sustancial de los "errores" es
+   ruido de etiquetado**, no falla de modelado: las estrellas miden satisfacción global,
+   el texto puede referirse a un solo aspecto.
+3. La comparación con BERTimbau valida ambas hipótesis: el contexto resuelve el 54% de
+   los errores (las reseñas mixtas), y el 46% restante — dominado por etiquetas
+   ruidosas — persiste en cualquier arquitectura.
+4. La elección de modelo depende de la métrica de negocio: para maximizar detección de
+   quejas a bajo costo, el lineal es defendible; para minimizar falsas alarmas, el
+   transformer justifica su costo computacional.
+
+**Extensión posible:** re-etiquetar a mano una muestra para medir la concordancia
+texto-estrellas y estimar con precisión la tasa de ruido de etiquetado.

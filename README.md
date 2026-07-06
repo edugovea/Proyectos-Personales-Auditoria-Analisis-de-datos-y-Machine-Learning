@@ -13,7 +13,7 @@ El hilo conductor es mi perfil de auditor: en todos los proyectos, antes de mode
 | 1 | Ecommerce Customer Analytics | Análisis descriptivo + segmentación | SQL avanzado, RFM, K-Means no supervisado | ✅ Completado |
 | 2 | Dashboard Logístico (Tableau) | Business Intelligence | Pipeline reproducible Python→Tableau, data storytelling | ✅ Completado |
 | 3 | Auditoría Continua ISO 27001 | Ingeniería de datos + auditoría TI | PostgreSQL, SQL functions, trigger de inmutabilidad, pytest, Power BI | ✅ Completado |
-| 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, análisis de errores profundo | 🚧 En desarrollo |
+| 4 | Clasificador de Sentimiento (PNL) | Machine Learning supervisado | TF-IDF, regresión logística, BERTimbau, análisis de errores profundo | ✅ Completado |
 | 5 | Monitor Normativo BOCBA | Automatización + procesamiento documental | Consumo de API pública, extracción de texto de PDFs (PyMuPDF), matriz de riesgo por materia, tablero Streamlit, automatización diaria, gacetillas PDF; evolución: feedback del auditor → ML | ✅ Completado |
 | 6 | Auditoría Continua de IA + Seguridad | AI Assurance + seguridad | AI assurance de un modelo ML (SHAP, drift, model card, fairness) + DevSecOps (SAST, escaneo de dependencias, log con hash-chaining); mapeo a ISO/IEC 42001 y NIST AI RMF | 📋 Planificado |
 
@@ -70,13 +70,13 @@ El proyecto se gestiona con un tablero Kanban en Jira, siguiendo un proceso deli
 
 `Python` · `PostgreSQL` · `pytest` · `Power BI` · `Jira`
 
-### 4 · Clasificador de Sentimiento — PNL 🚧 En desarrollo
+### 4 · Clasificador de Sentimiento — PNL ✅ Completado
 
 **Evolución del Proyecto 2 sobre el mismo dataset Olist.** Si el P2 *describe* la operación logística con BI, el P4 da el salto al *modelado predictivo*: clasifica ~100k reseñas reales de Olist (portugués) en positivas/negativas, usando el puntaje de estrellas como etiqueta (aprendizaje supervisado).
 
-El valor del proyecto no está en la métrica de accuracy, sino en el **análisis de errores profundo**: agrupar las fallas del modelo por patrón (sarcasmo, reseñas mixtas, portugués coloquial) y documentar *dónde y por qué* un modelo lineal no las captura. Opcionalmente, comparar contra un transformer (Hugging Face) para evidenciar el contraste.
+El valor del proyecto no está en la métrica de accuracy (0.93 vs baseline 0.71), sino en el **análisis de errores profundo**: la categorización manual de las fallas del modelo reveló que una parte sustancial son *ruido de etiquetado* (el texto contradice a las estrellas), no errores de modelado. La comparación contra BERTimbau lo confirmó: el transformer resuelve el 54% de los errores del modelo lineal (las reseñas mixtas), pero el resto persiste en cualquier arquitectura — es el piso de ruido irreducible del dataset.
 
-`Python` · `Scikit-Learn` · `TF-IDF` · `Regresión Logística` · (opcional: `Hugging Face`)
+`Python` · `Scikit-Learn` · `TF-IDF` · `Regresión Logística` · `Hugging Face` · `BERTimbau` · `Google Colab`
 
 ### 5 · Monitor Normativo BOCBA ✅ Completado
 
