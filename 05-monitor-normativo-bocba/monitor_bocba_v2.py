@@ -397,17 +397,24 @@ def descargar_texto(session, doc_id, info):
         except Exception:
             pass
     fuentes = {}
+    fallos = []
     try:
         fuentes["Norma"] = _bajar_pdf_paginas(session, info.get("url_norma", ""))
     except Exception as e:
-        log(f"    (norma {doc_id} no descargada: {e})")
+        log(f"    (norma {doc_id} no descargada: {str(e)[:120]})")
         fuentes["Norma"] = []
+        fallos.append("Norma")
     if INCLUIR_ANEXOS:
         for n, url_ax in enumerate(info.get("anexos", []), 1):
             try:
                 fuentes[f"Anexo {n}"] = _bajar_pdf_paginas(session, url_ax)
             except Exception:
                 fuentes[f"Anexo {n}"] = []
+                fallos.append(f"Anexo {n}")
+    # Si algo fallo NO se cachea: un cache vacio taparia el documento como
+    # "leido sin coincidencias" (falso negativo) en todas las corridas futuras.
+    if fallos:
+        raise RuntimeError(f"descarga incompleta ({', '.join(fallos)})")
     cache_file.write_text(json.dumps(fuentes, ensure_ascii=False), encoding="utf-8")
     return fuentes
 

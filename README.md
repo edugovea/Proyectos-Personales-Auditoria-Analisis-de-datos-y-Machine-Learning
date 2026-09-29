@@ -83,14 +83,15 @@ El valor del proyecto no está en la métrica de accuracy (0.93 vs baseline 0.71
 Proyecto original nacido de un problema laboral real: vigilancia y búsqueda de normativa del Boletín Oficial de la Ciudad de Buenos Aires sobre **fuentes públicas** (API REST oficial), con criterio de relevancia explicable orientado a auditoría. Es la carta de automatización del portfolio.
 
 - **Motor de vigilancia**: consume la API del Boletín, descarga los PDFs en paralelo (caché + reintentos), extrae texto con PyMuPDF y clasifica con una **matriz de riesgo por materia** calibrada con criterios reales de un área legal.
-- **Tablero Streamlit**: búsqueda por fecha, tema, palabra libre o número de boletín (con descarga en vivo del histórico — comprobado hasta 2022), tabla tipo Excel, y **automatización diaria** vía Programador de tareas desde la propia interfaz.
+- **Tablero Streamlit**: búsqueda por fecha, tema, palabra libre o número de boletín (con descarga en vivo de boletines anteriores), tabla tipo Excel, y **automatización diaria** vía Programador de tareas desde la propia interfaz.
 - **Salidas**: reporte JSON, informe ejecutivo PDF, gacetilla completa y **edición institucional curada** lista para circular.
+- *Alcance validado:* motor, tablero, informe y gacetillas revisados de punta a punta con los boletines del 08/06/2026 al 06/07/2026.
 - *Evolución prevista:* botón de feedback del auditor → dataset etiquetado → clasificador ML con fallback a reglas.
 
 **Mejoras destacadas de la última iteración (julio 2026):**
 
 - **Matriz de riesgo por materia** calibrada con criterios reales de un área legal, con regla *anti-boilerplate*: distingue una norma *sobre* datos personales de una cláusula estándar de contrato que solo los menciona.
-- **Búsqueda en vivo por número de boletín** desde la app: si no está en la biblioteca local, lo trae del BOCBA al momento (alcance histórico comprobado hasta 2022).
+- **Búsqueda en vivo por número de boletín** desde la app: si no está en la biblioteca local, lo trae del BOCBA al momento (probado con boletines puntuales de 2024 y 2025).
 - **Automatización diaria verificada de punta a punta** (Programador de tareas de Windows), con manejo correcto de fines de semana y feriados sin boletín propio.
 - **Tres salidas PDF por corrida**: informe ejecutivo, gacetilla completa con identidad Obelisco y edición institucional curada (solo relevancia ALTA) lista para circular por mail.
 - **UX de buscador**: pantalla de bienvenida, filtros neutros que decide el usuario, tabla tipo Excel con badges y selección de filas, y capturas reales en el README del proyecto.
