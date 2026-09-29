@@ -1,6 +1,6 @@
 # 🔎 05 - Monitor Normativo BOCBA
 
-✅ **Estado:** funcional — motor de vigilancia, buscador histórico y tablero web operativos, en evolución continua.
+✅ **Estado:** funcional — motor de vigilancia, buscador por número de boletín y tablero web operativos, en evolución continua.
 
 ## Qué es
 
@@ -10,6 +10,8 @@ En lugar de depender de buscadores con retraso de indexación, consulta la **API
 
 El usuario de referencia es un **equipo legal / de control** que necesita una gacetilla diaria o semanal de novedades normativas: los criterios de qué vigilar y qué priorizar se calibraron con el pedido real de un área legal (leyes, designaciones de alto rango, cambios de estructura, informes finales de gestión y materias sensibles).
 
+**Alcance validado:** el motor, el tablero, el informe ejecutivo y las gacetillas se revisaron de punta a punta con los boletines del **08/06/2026 al 06/07/2026**. Fuera de ese rango, la búsqueda por número de boletín funciona sobre boletines puntuales, pero sus salidas no se validaron con el mismo detalle.
+
 ![Tablero del Monitor Normativo BOCBA: resultados con semáforo de relevancia, etiquetas y filtros](docs/app_resultados.png)
 
 ## Componentes
@@ -18,7 +20,7 @@ El usuario de referencia es un **equipo legal / de control** que necesita una ga
 |---|---|
 | `monitor_bocba_v2.py` | **El motor.** Consulta la API por fecha o rango, descarga los PDFs en paralelo (con caché y reintentos), extrae texto con PyMuPDF, busca keywords/siglas/sinónimos y clasifica cada norma con la matriz de riesgo. Genera reporte JSON, informe ejecutivo PDF y gacetilla PDF, y archiva los PDFs de las normas detectadas. Omite automáticamente los días sin boletín propio (fines de semana/feriados). |
 | `app.py` | **El tablero (Streamlit).** Pantalla de bienvenida, filtros por fecha (Hoy / Esta semana / Rango con calendario), relevancia, temas, palabra clave y N° de boletín; tabla tipo Excel (AgGrid) con badges, filtros por columna insensibles a tildes y selección de filas; KPIs, gráfico por día, detalle de menciones con página y contexto; descarga de CSV y de la gacetilla filtrada en PDF; y activación de la **automatización diaria** (Programador de tareas de Windows) desde la propia interfaz. |
-| `buscar_bocba.py` | **Búsqueda por número de boletín.** La API solo consulta por fecha, así que resuelve iterativamente a qué fecha corresponde el número pedido. Alcance histórico comprobado (boletines de 2024). Analiza el boletín completo con el criterio del monitor o busca una palabra puntual; genera gacetilla PDF y deja el reporte disponible para la app. |
+| `buscar_bocba.py` | **Búsqueda por número de boletín.** La API solo consulta por fecha, así que resuelve iterativamente a qué fecha corresponde el número pedido. Probado con boletines puntuales de 2024 y 2025. Analiza el boletín completo con el criterio del monitor o busca una palabra puntual; genera gacetilla PDF y deja el reporte disponible para la app. |
 | `buscar_palabra.py` | Búsqueda rápida de una palabra o frase libre en el boletín de hoy (o una fecha dada), reutilizando caché y motor. |
 
 ## El criterio de relevancia: matriz de riesgo por materia
